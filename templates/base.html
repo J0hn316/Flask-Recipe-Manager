@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Recipe Manager{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="container header-content">
+        <div>
+          <p class="brand-kicker">Python + Flask</p>
+          <h1 class="brand-title">Recipe Manager</h1>
+        </div>
+      </div>
+    </header>
+
+    <main class="container page-content">
+      {% block content %}{% endblock %}
+    </main>
+  </body>
+
+</html>
