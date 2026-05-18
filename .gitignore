@@ -9,7 +9,7 @@ __pycache__/
 .env
 
 # SQLite database
-applications.db
+recipes.db
 
 # OS/editor files
 .DS_Store

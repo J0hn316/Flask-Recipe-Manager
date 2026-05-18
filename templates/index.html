@@ -8,27 +8,81 @@
     <p class="eyebrow">Flask Project 3</p>
     <h2>Save favorite recipes and pair them with images.</h2>
     <p class="hero-text">
-      This project will build a recipe manager with full CRUD, SQLite persistence,
-      form validation, and safe image upload handling in Flask.
+      Add recipe details now. In a later phase, we’ll extend this form
+      to upload and display recipe images safely.
     </p>
   </div>
 
   <aside class="project-focus-card">
-    <p class="eyebrow">New Skill Focus</p>
+    <p class="eyebrow">Current Focus</p>
     <ul>
-      <li>Image uploads</li>
-      <li>Safe filenames</li>
-      <li>Upload folders</li>
-      <li>Serving uploaded images</li>
+      <li>Recipe data model</li>
+      <li>SQLite persistence</li>
+      <li>Structured form inputs</li>
+      <li>Prepared image column</li>
     </ul>
   </aside>
 </section>
 
+<section class="form-card">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">New Recipe</p>
+      <h3>Add a Recipe</h3>
+    </div>
+  </div>
+
+  <form method="POST" class="recipe-form">
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="title">Recipe Title</label>
+        <input type="text" id="title" name="title" placeholder="Chicken Alfredo Pasta">
+      </div>
+
+      <div class="form-group">
+        <label for="category">Category</label>
+        <input type="text" id="category" name="category" placeholder="Dinner">
+      </div>
+
+      <div class="form-group">
+        <label for="prep_time">Prep Time, Minutes</label>
+        <input type="number" id="prep_time" name="prep_time" min="0" placeholder="15">
+      </div>
+
+      <div class="form-group">
+        <label for="cook_time">Cook Time, Minutes</label>
+        <input type="number" id="cook_time" name="cook_time" min="0" placeholder="25">
+      </div>
+
+      <div class="form-group">
+        <label for="servings">Servings</label>
+        <input type="number" id="servings" name="servings" min="1" placeholder="4">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="ingredients">Ingredients</label>
+      <textarea id="ingredients" name="ingredients" rows="6"
+        placeholder="- Chicken breast&#10;- Pasta&#10;- Heavy cream&#10;- Parmesan cheese"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="instructions">Instructions</label>
+      <textarea id="instructions" name="instructions" rows="7"
+        placeholder="1. Cook the pasta.&#10;2. Sear the chicken.&#10;3. Make the sauce.&#10;4. Combine and serve."></textarea>
+    </div>
+
+    <button type="submit" class="primary-button">
+      Save Recipe
+    </button>
+  </form>
+</section>
+
 <section class="empty-state-card">
-  <h3>No recipes saved yet</h3>
+  <h3>Recipes are now being saved</h3>
   <p>
-    In the next phase, we’ll create the SQLite database and build the form
-    for saving recipe details.
+    Submit the form above to insert a recipe into SQLite.
+    In Phase 3, we’ll fetch saved recipes and render them on the page.
   </p>
 </section>
 {% endblock %}
