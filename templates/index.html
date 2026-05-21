@@ -77,12 +77,97 @@
     </button>
   </form>
 </section>
+{% if recipes %}
+<section class="recipes-section">
+  <div class="recipes-heading">
+    <div>
+      <p class="eyebrow">Recipe Collection</p>
+      <h3>Saved Recipes</h3>
+    </div>
 
+    <p class="recipe-count">
+      {{ recipes | length }}
+      recipe{% if recipes | length != 1 %}s{% endif %}
+      saved
+    </p>
+  </div>
+
+  <div class="recipes-grid">
+    {% for recipe in recipes %}
+    <article class="recipe-card">
+      <div class="recipe-card-header">
+        <div>
+          <p class="recipe-category">
+            {% if recipe["category"] %}
+            {{ recipe["category"] }}
+            {% else %}
+            Uncategorized
+            {% endif %}
+          </p>
+
+          <h4>{{ recipe["title"] }}</h4>
+        </div>
+      </div>
+
+      <dl class="recipe-meta">
+        <div>
+          <dt>Prep</dt>
+          <dd>
+            {% if recipe["prep_time"] is not none %}
+            {{ recipe["prep_time"] }} min
+            {% else %}
+            —
+            {% endif %}
+          </dd>
+        </div>
+
+        <div>
+          <dt>Cook</dt>
+          <dd>
+            {% if recipe["cook_time"] is not none %}
+            {{ recipe["cook_time"] }} min
+            {% else %}
+            —
+            {% endif %}
+          </dd>
+        </div>
+
+        <div>
+          <dt>Servings</dt>
+          <dd>
+            {% if recipe["servings"] is not none %}
+            {{ recipe["servings"] }}
+            {% else %}
+            —
+            {% endif %}
+          </dd>
+        </div>
+      </dl>
+
+      <div class="recipe-content-block">
+        <strong>Ingredients</strong>
+        <p class="multiline-text">{{ recipe["ingredients"] }}</p>
+      </div>
+
+      <div class="recipe-content-block">
+        <strong>Instructions</strong>
+        <p class="multiline-text">{{ recipe["instructions"] }}</p>
+      </div>
+
+      <p class="recipe-created">
+        Saved: {{ recipe["created_at"] }}
+      </p>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% else %}
 <section class="empty-state-card">
-  <h3>Recipes are now being saved</h3>
+  <h3>No recipes saved yet</h3>
   <p>
-    Submit the form above to insert a recipe into SQLite.
-    In Phase 3, we’ll fetch saved recipes and render them on the page.
+    Add your first recipe using the form above.
+    Once saved, it will appear here in your recipe collection.
   </p>
 </section>
+{% endif %}
 {% endblock %}

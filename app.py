@@ -1,6 +1,6 @@
 from flask import Flask, redirect, render_template, request, url_for
 
-from database import add_recipe, create_recipes_table
+from database import add_recipe, create_recipes_table, get_all_recipes
 
 app = Flask(__name__)
 
@@ -30,4 +30,6 @@ def home() -> str:
 
         return redirect(url_for("home"))
 
-    return render_template("index.html")
+    recipes = get_all_recipes()
+
+    return render_template("index.html", recipes=recipes)

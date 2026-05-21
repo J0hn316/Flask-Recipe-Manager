@@ -71,3 +71,28 @@ def add_recipe(
         connection.commit()
     finally:
         connection.close()
+
+
+def get_all_recipes() -> list[sqlite3.Row]:
+    connection = get_connection()
+
+    try:
+        recipes = connection.execute("""
+            SELECT
+                id,
+                title,
+                category,
+                prep_time,
+                cook_time,
+                servings,
+                ingredients,
+                instructions,
+                image_filename,
+                created_at
+            FROM recipes
+            ORDER BY created_at DESC, id DESC
+            """).fetchall()
+
+        return recipes
+    finally:
+        connection.close()
