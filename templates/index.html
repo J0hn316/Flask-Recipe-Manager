@@ -32,11 +32,19 @@
     </div>
   </div>
 
-  <form method="POST" class="recipe-form">
+  <form method="POST" class="recipe-form" enctype="multipart/form-data">
     <div class="form-grid">
       <div class="form-group">
         <label for="title">Recipe Title</label>
         <input type="text" id="title" name="title" placeholder="Chicken Alfredo Pasta">
+      </div>
+
+      <div class="form-group">
+        <label for="recipe_image">Recipe Image</label>
+        <input type="file" id="recipe_image" name="recipe_image" accept=".png,.jpg,.jpeg,.gif,.webp">
+        <p class="helper-text">
+          Optional. Allowed formats: PNG, JPG, JPEG, GIF, WEBP. Max size: 2 MB.
+        </p>
       </div>
 
       <div class="form-group">
@@ -95,6 +103,14 @@
   <div class="recipes-grid">
     {% for recipe in recipes %}
     <article class="recipe-card">
+      {% if recipe["image_filename"] %}
+      <img src="{{ url_for('static', filename='uploads/recipe_images/' ~ recipe['image_filename']) }}"
+        alt="{{ recipe['title'] }}" class="recipe-image">
+      {% else %}
+      <div class="recipe-image-placeholder">
+        No image uploaded
+      </div>
+      {% endif %}
       <div class="recipe-card-header">
         <div>
           <p class="recipe-category">

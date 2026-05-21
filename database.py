@@ -41,6 +41,7 @@ def add_recipe(
     servings: str,
     ingredients: str,
     instructions: str,
+    image_filename: str | None,
 ) -> None:
     connection = get_connection()
 
@@ -54,9 +55,10 @@ def add_recipe(
                 cook_time,
                 servings,
                 ingredients,
-                instructions
+                instructions,
+                image_filename
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?,?)
             """,
             (
                 title,
@@ -66,6 +68,7 @@ def add_recipe(
                 servings or None,
                 ingredients,
                 instructions,
+                image_filename,
             ),
         )
         connection.commit()

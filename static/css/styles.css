@@ -292,3 +292,36 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+.helper-text {
+  margin: -0.2rem 0 0;
+  color: #7c5c43;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.form-group input[type='file'] {
+  padding: 0.75rem;
+}
+
+.recipe-image,
+.recipe-image-placeholder {
+  width: 100%;
+  height: 260px;
+  border-radius: 0.9rem;
+  margin-bottom: 1.25rem;
+}
+
+.recipe-image {
+  display: block;
+  object-fit: cover;
+}
+
+.recipe-image-placeholder {
+  display: grid;
+  place-items: center;
+  background-color: #fff7ed;
+  border: 1px dashed #d6bfae;
+  color: #9a3412;
+  font-weight: bold;
+}
