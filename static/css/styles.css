@@ -325,3 +325,47 @@ body {
   color: #9a3412;
   font-weight: bold;
 }
+
+.single-column-hero {
+  grid-template-columns: 1fr;
+}
+
+.current-image-preview {
+  margin-bottom: 1.5rem;
+}
+
+.current-image-preview img {
+  display: block;
+  width: 100%;
+  max-height: 360px;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+
+.form-actions,
+.recipe-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.recipe-actions {
+  margin-top: 1.25rem;
+}
+
+.secondary-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #d6bfae;
+  border-radius: 0.85rem;
+  padding: 0.8rem 1.05rem;
+  background-color: #ffffff;
+  color: #7c2d12;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.secondary-link:hover {
+  background-color: #fff7ed;
+}

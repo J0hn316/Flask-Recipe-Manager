@@ -99,3 +99,76 @@ def get_all_recipes() -> list[sqlite3.Row]:
         return recipes
     finally:
         connection.close()
+
+
+def get_recipe_by_id(recipe_id: int) -> sqlite3.Row | None:
+    connection = get_connection()
+
+    try:
+        recipe = connection.execute(
+            """
+            SELECT
+                id,
+                title,
+                category,
+                prep_time,
+                cook_time,
+                servings,
+                ingredients,
+                instructions,
+                image_filename,
+                created_at
+            FROM recipes
+            WHERE id = ?
+            """,
+            (recipe_id,),
+        ).fetchone()
+
+        return recipe
+    finally:
+        connection.close()
+
+
+def update_recipe(
+    recipe_id: int,
+    title: str,
+    category: str,
+    prep_time: str,
+    cook_time: str,
+    servings: str,
+    ingredients: str,
+    instructions: str,
+    image_filename: str | None,
+) -> None:
+    connection = get_connection()
+
+    try:
+        connection.execute(
+            """
+            UPDATE recipes
+            SET
+                title = ?,
+                category = ?,
+                prep_time = ?,
+                cook_time = ?,
+                servings = ?,
+                ingredients = ?,
+                instructions = ?,
+                image_filename = ?
+            WHERE id = ?
+            """,
+            (
+                title,
+                category,
+                prep_time or None,
+                cook_time or None,
+                servings or None,
+                ingredients,
+                instructions,
+                image_filename,
+                recipe_id,
+            ),
+        )
+        connection.commit()
+    finally:
+        connection.close()
