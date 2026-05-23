@@ -8,6 +8,10 @@ __pycache__/
 # Flask / local environment files
 .env
 
+# Uploaded recipe images
+static/uploads/recipe_images/*
+!static/uploads/recipe_images/.gitkeep
+
 # SQLite database
 recipes.db
 
