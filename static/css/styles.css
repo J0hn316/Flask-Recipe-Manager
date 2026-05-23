@@ -369,3 +369,22 @@ body {
 .secondary-link:hover {
   background-color: #fff7ed;
 }
+
+.recipe-actions form {
+  margin: 0;
+}
+
+.danger-button {
+  border: none;
+  border-radius: 0.85rem;
+  padding: 0.8rem 1.05rem;
+  background-color: #dc2626;
+  color: #ffffff;
+  font: inherit;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.danger-button:hover {
+  background-color: #b91c1c;
+}

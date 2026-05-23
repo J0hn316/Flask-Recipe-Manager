@@ -172,3 +172,19 @@ def update_recipe(
         connection.commit()
     finally:
         connection.close()
+
+
+def delete_recipe(recipe_id: int) -> None:
+    connection = get_connection()
+
+    try:
+        connection.execute(
+            """
+            DELETE FROM recipes
+            WHERE id = ?
+            """,
+            (recipe_id,),
+        )
+        connection.commit()
+    finally:
+        connection.close()

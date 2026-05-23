@@ -8,6 +8,7 @@ from database import (
     get_all_recipes,
     get_recipe_by_id,
     update_recipe,
+    delete_recipe,
 )
 
 app = Flask(__name__)
@@ -128,3 +129,16 @@ def edit_recipe(recipe_id: int) -> str:
         "edit_recipe.html",
         recipe=recipe,
     )
+
+
+@app.route("/recipes/<int:recipe_id>/delete", methods=["POST"])
+def remove_recipe(recipe_id: int) -> str:
+    recipe = get_recipe_by_id(recipe_id)
+
+    if recipe is None:
+        return redirect(url_for("home"))
+
+    delete_recipe_image(recipe["image_filename"])
+    delete_recipe(recipe_id)
+
+    return redirect(url_for("home"))
