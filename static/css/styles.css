@@ -388,3 +388,48 @@ body {
 .danger-button:hover {
   background-color: #b91c1c;
 }
+.flash-messages {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.flash-message {
+  margin: 0;
+  padding: 1rem 1.25rem;
+  border-radius: 0.9rem;
+  font-weight: bold;
+}
+
+.flash-success {
+  background-color: #dcfce7;
+  border: 1px solid #86efac;
+  color: #166534;
+}
+
+.flash-error {
+  background-color: #fee2e2;
+  border: 1px solid #fca5a5;
+  color: #991b1b;
+}
+
+.validation-errors {
+  margin-bottom: 1.5rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid #fca5a5;
+  border-radius: 0.9rem;
+  background-color: #fef2f2;
+  color: #991b1b;
+}
+
+.validation-errors p {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.validation-errors ul {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 1.25rem;
+}

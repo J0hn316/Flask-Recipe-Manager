@@ -8,18 +8,18 @@
     <p class="eyebrow">Flask Project 3</p>
     <h2>Save favorite recipes and pair them with images.</h2>
     <p class="hero-text">
-      Add recipe details now. In a later phase, we’ll extend this form
-      to upload and display recipe images safely.
+      Add recipe details, optionally upload an image, and keep your recipe
+      collection organized with Flask and SQLite.
     </p>
   </div>
 
   <aside class="project-focus-card">
     <p class="eyebrow">Current Focus</p>
     <ul>
-      <li>Recipe data model</li>
-      <li>SQLite persistence</li>
-      <li>Structured form inputs</li>
-      <li>Prepared image column</li>
+      <li>Recipe validation</li>
+      <li>Safe image uploads</li>
+      <li>Unique image filenames</li>
+      <li>Full CRUD workflow</li>
     </ul>
   </aside>
 </section>
@@ -32,52 +32,65 @@
     </div>
   </div>
 
+  {% if validation_errors %}
+  <div class="validation-errors" role="alert">
+    <p>Please fix the following:</p>
+    <ul>
+      {% for error in validation_errors %}
+      <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
   <form method="POST" class="recipe-form" enctype="multipart/form-data">
     <div class="form-grid">
       <div class="form-group">
         <label for="title">Recipe Title</label>
-        <input type="text" id="title" name="title" placeholder="Chicken Alfredo Pasta">
-      </div>
-
-      <div class="form-group">
-        <label for="recipe_image">Recipe Image</label>
-        <input type="file" id="recipe_image" name="recipe_image" accept=".png,.jpg,.jpeg,.gif,.webp">
-        <p class="helper-text">
-          Optional. Allowed formats: PNG, JPG, JPEG, GIF, WEBP. Max size: 2 MB.
-        </p>
+        <input type="text" id="title" name="title" placeholder="Chicken Alfredo Pasta" value="{{ form_data['title'] }}">
       </div>
 
       <div class="form-group">
         <label for="category">Category</label>
-        <input type="text" id="category" name="category" placeholder="Dinner">
+        <input type="text" id="category" name="category" placeholder="Dinner" value="{{ form_data['category'] }}">
       </div>
 
       <div class="form-group">
         <label for="prep_time">Prep Time, Minutes</label>
-        <input type="number" id="prep_time" name="prep_time" min="0" placeholder="15">
+        <input type="number" id="prep_time" name="prep_time" min="0" placeholder="15"
+          value="{{ form_data['prep_time'] }}">
       </div>
 
       <div class="form-group">
         <label for="cook_time">Cook Time, Minutes</label>
-        <input type="number" id="cook_time" name="cook_time" min="0" placeholder="25">
+        <input type="number" id="cook_time" name="cook_time" min="0" placeholder="25"
+          value="{{ form_data['cook_time'] }}">
       </div>
 
       <div class="form-group">
         <label for="servings">Servings</label>
-        <input type="number" id="servings" name="servings" min="1" placeholder="4">
+        <input type="number" id="servings" name="servings" min="1" placeholder="4" value="{{ form_data['servings'] }}">
       </div>
+    </div>
+
+    <div class="form-group">
+      <label for="recipe_image">Recipe Image</label>
+      <input type="file" id="recipe_image" name="recipe_image" accept=".png,.jpg,.jpeg,.gif,.webp">
+      <p class="helper-text">
+        Optional. Allowed formats: PNG, JPG, JPEG, GIF, WEBP. Max size: 2 MB.
+      </p>
     </div>
 
     <div class="form-group">
       <label for="ingredients">Ingredients</label>
       <textarea id="ingredients" name="ingredients" rows="6"
-        placeholder="- Chicken breast&#10;- Pasta&#10;- Heavy cream&#10;- Parmesan cheese"></textarea>
+        placeholder="- Chicken breast&#10;- Pasta&#10;- Heavy cream&#10;- Parmesan cheese">{{ form_data["ingredients"] }}</textarea>
     </div>
 
     <div class="form-group">
       <label for="instructions">Instructions</label>
       <textarea id="instructions" name="instructions" rows="7"
-        placeholder="1. Cook the pasta.&#10;2. Sear the chicken.&#10;3. Make the sauce.&#10;4. Combine and serve."></textarea>
+        placeholder="1. Cook the pasta.&#10;2. Sear the chicken.&#10;3. Make the sauce.&#10;4. Combine and serve.">{{ form_data["instructions"] }}</textarea>
     </div>
 
     <button type="submit" class="primary-button">
@@ -85,6 +98,7 @@
     </button>
   </form>
 </section>
+
 {% if recipes %}
 <section class="recipes-section">
   <div class="recipes-heading">
@@ -111,6 +125,7 @@
         No image uploaded
       </div>
       {% endif %}
+
       <div class="recipe-card-header">
         <div>
           <p class="recipe-category">
@@ -169,13 +184,16 @@
         <strong>Instructions</strong>
         <p class="multiline-text">{{ recipe["instructions"] }}</p>
       </div>
+
       <p class="recipe-created">
         Saved: {{ recipe["created_at"] }}
       </p>
+
       <div class="recipe-actions">
         <a href="{{ url_for('edit_recipe', recipe_id=recipe['id']) }}" class="secondary-link">
           Edit
         </a>
+
         <form method="POST" action="{{ url_for('remove_recipe', recipe_id=recipe['id']) }}">
           <button type="submit" class="danger-button">
             Delete
